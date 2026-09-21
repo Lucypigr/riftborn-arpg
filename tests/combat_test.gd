@@ -49,7 +49,7 @@ func run() -> void:
 	expect_equal(observed[0], true, "damage event emitted")
 	expect_equal(death_target.died, true, "monster death callback")
 	# DoT outgoing value is snapshotted while current target resistance remains dynamic.
-	var snapshot := combat.create_dot_snapshot({"base": {&"fire": 20.0}, "increased": {&"fire": 50.0}, "duration_ms": 1100})
+	var snapshot: Dictionary = combat.create_dot_snapshot({"base": {&"fire": 20.0}, "increased": {&"fire": 50.0}, "duration_ms": 1100})
 	expect_equal(snapshot.values[&"fire"], 30.0, "DoT outgoing snapshot")
 	expect_equal(snapshot.duration_ms / snapshot.interval_ms, 2, "complete DoT tick count")
 	for path in ["res://scenes/main.tscn", "res://scenes/player.tscn", "res://scenes/melee_enemy.tscn", "res://scenes/ranged_enemy.tscn", "res://scenes/projectile.tscn"]:
