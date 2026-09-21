@@ -5,10 +5,12 @@ on:
     branches:
       - main
       - build-001-combat-core
+      - feature/arpg-vertical-slice
   pull_request:
     branches:
       - main
       - build-001-combat-core
+      - feature/arpg-vertical-slice
   workflow_dispatch:
 
 permissions:
