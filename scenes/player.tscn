@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=3]
+[ext_resource path="res://scripts/actors/player.gd" type="Script" id="1"]
+[ext_resource path="res://data/skills/basic_attack.tres" type="Resource" id="2"]
+[ext_resource path="res://data/skills/arc_bolt.tres" type="Resource" id="3"]
+[ext_resource path="res://scenes/projectile.tscn" type="PackedScene" id="4"]
+[sub_resource type="CapsuleShape2D" id="shape"]
+radius = 15.0
+height = 34.0
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+collision_layer = 2
+collision_mask = 1
+script = ExtResource("1")
+max_life = 180
+max_mana = 100
+basic_skill = ExtResource("2")
+projectile_skill = ExtResource("3")
+projectile_scene = ExtResource("4")
+[node name="Body" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(22, 0, -14, -17, -8, 0, -14, 17)
+color = Color(0.23, 0.78, 0.92, 1)
+[node name="Core" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(8, 0, 0, -8, -8, 0, 0, 8)
+color = Color(0.9, 0.97, 1, 1)
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("shape")

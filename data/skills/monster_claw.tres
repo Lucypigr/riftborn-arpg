@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3]
+[ext_resource path="res://scripts/skills/skill_data.gd" type="Script" id="1"]
+[resource]
+script = ExtResource("1")
+display_name = "Void Claw"
+tags = PackedStringArray("attack", "melee")
+base_damage = {&"physical": 13.0}
+cooldown_seconds = 1.15
+range_pixels = 54.0

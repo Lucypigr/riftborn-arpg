@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3]
+
+[ext_resource path="res://scripts/skills/skill_data.gd" type="Script" id="1"]
+
+[resource]
+script = ExtResource("1")
+display_name = "Rift Cleave"
+tags = PackedStringArray("attack", "melee", "physical")
+base_damage = {&"physical": 28.0}
+mana_cost = 0
+cooldown_seconds = 0.42
+range_pixels = 82.0
