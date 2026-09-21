@@ -2,13 +2,13 @@
 
 [ext_resource path="res://scripts/combat/projectile.gd" type="Script" id="1"]
 [sub_resource type="CircleShape2D" id="shape"]
-radius = 7.0
+radius = 8.0
+
 [node name="Projectile" type="Area2D"]
 script = ExtResource("1")
 monitoring = true
-[node name="Orb" type="Polygon2D" parent="."]
-polygon = PackedVector2Array(-8, 0, -4, -6, 4, -6, 8, 0, 4, 6, -4, 6)
-color = Color(0.35, 0.9, 1, 1)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("shape")
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

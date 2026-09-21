@@ -58,6 +58,12 @@ jobs:
           set -euo pipefail
           "$RUNNER_TEMP/godot/godot4" --headless --path . --script res://tests/combat_test.gd
 
+      - name: Run vertical slice data and resource tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          "$RUNNER_TEMP/godot/godot4" --headless --path . --script res://tests/vertical_slice_test.gd
+
       - name: Export Web build
         shell: bash
         run: |

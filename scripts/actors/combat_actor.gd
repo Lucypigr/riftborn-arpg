@@ -28,6 +28,11 @@ func spend_mana(amount: int) -> bool:
 	mana_changed.emit(mana, max_mana)
 	return true
 
+func flash_hit() -> void:
+	modulate = Color("fff1d4")
+	var tween := create_tween()
+	tween.tween_property(self, "modulate", Color.WHITE, 0.12)
+
 func die() -> void:
 	if dead: return
 	dead = true

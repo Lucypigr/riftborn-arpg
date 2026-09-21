@@ -23,8 +23,15 @@ func _physics_process(delta: float) -> void:
 	position += movement
 	travelled += movement.length()
 	if travelled >= skill.range_pixels: queue_free()
+	queue_redraw()
 
 func _on_body_entered(body: Node) -> void:
 	if body is CombatActor and body.faction != owner_faction and not body.dead:
 		CombatSystem.resolve_hit(source, body, skill.make_packet(source.combat_stats))
 		queue_free()
+
+func _draw() -> void:
+	var color := Color("ff945e") if owner_faction == &"enemy" else Color("75f0ff")
+	draw_circle(Vector2.ZERO, 15.0, Color(color, 0.16))
+	draw_circle(Vector2.ZERO, 6.0, color)
+	draw_circle(Vector2.ZERO, 2.0, Color.WHITE)

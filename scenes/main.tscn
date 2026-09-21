@@ -1,114 +1,161 @@
-[gd_scene load_steps=10 format=3]
+[gd_scene load_steps=12 format=3]
 
 [ext_resource path="res://scripts/game/main.gd" type="Script" id="1"]
-[ext_resource path="res://scenes/player.tscn" type="PackedScene" id="2"]
-[ext_resource path="res://scenes/melee_enemy.tscn" type="PackedScene" id="3"]
-[ext_resource path="res://scenes/ranged_enemy.tscn" type="PackedScene" id="4"]
+[ext_resource path="res://scripts/game/world_director.gd" type="Script" id="2"]
+[ext_resource path="res://scenes/player.tscn" type="PackedScene" id="3"]
+[ext_resource path="res://scenes/portal.tscn" type="PackedScene" id="4"]
+[ext_resource path="res://scripts/ui/mobile_controls.gd" type="Script" id="5"]
+[ext_resource path="res://assets/art/ashen_rift_arena.png" type="Texture2D" id="6"]
 [sub_resource type="RectangleShape2D" id="wall_h"]
-size = Vector2(1280, 30)
+size = Vector2(1280, 24)
 [sub_resource type="RectangleShape2D" id="wall_v"]
-size = Vector2(30, 720)
+size = Vector2(24, 720)
 [sub_resource type="StyleBoxFlat" id="panel"]
-bg_color = Color(0.035, 0.055, 0.09, 0.9)
+bg_color = Color(0.025, 0.035, 0.07, 0.9)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.18, 0.55, 0.7, 0.8)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+border_color = Color(0.32, 0.23, 0.65, 0.9)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+content_margin_left = 16.0
+content_margin_top = 12.0
+content_margin_right = 16.0
+content_margin_bottom = 12.0
 [sub_resource type="StyleBoxFlat" id="life_fill"]
-bg_color = Color(0.75, 0.12, 0.16, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_left = 5
-corner_radius_bottom_right = 5
+bg_color = Color(0.82, 0.15, 0.23, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_left = 6
+corner_radius_bottom_right = 6
 [sub_resource type="StyleBoxFlat" id="mana_fill"]
-bg_color = Color(0.15, 0.4, 0.9, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_left = 5
-corner_radius_bottom_right = 5
+bg_color = Color(0.18, 0.48, 0.95, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_left = 6
+corner_radius_bottom_right = 6
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1")
-[node name="Ground" type="Polygon2D" parent="."]
-polygon = PackedVector2Array(0, 0, 1280, 0, 1280, 720, 0, 720)
-color = Color(0.055, 0.085, 0.105, 1)
-z_index = -10
-[node name="RuneA" type="Polygon2D" parent="."]
-polygon = PackedVector2Array(250, 120, 330, 80, 410, 120, 420, 220, 330, 265, 245, 215)
-color = Color(0.08, 0.19, 0.22, 1)
-z_index = -9
-[node name="RuneB" type="Polygon2D" parent="."]
-polygon = PackedVector2Array(800, 450, 900, 410, 1010, 470, 970, 590, 835, 600)
-color = Color(0.12, 0.1, 0.2, 1)
-z_index = -9
+
+[node name="ArenaArt" type="Sprite2D" parent="."]
+texture = ExtResource("6")
+position = Vector2(640, 360)
+scale = Vector2(0.84, 0.72)
+z_index = -20
+
+[node name="WorldDirector" type="Node2D" parent="."]
+script = ExtResource("2")
+
+[node name="Player" parent="." instance=ExtResource("3")]
+position = Vector2(320, 380)
+
+[node name="RiftPortal" parent="." instance=ExtResource("4")]
+position = Vector2(1050, 380)
+
 [node name="Top" type="StaticBody2D" parent="."]
 collision_layer = 1
 [node name="Collision" type="CollisionShape2D" parent="Top"]
-position = Vector2(640, 0)
+position = Vector2(640, 8)
 shape = SubResource("wall_h")
 [node name="Bottom" type="StaticBody2D" parent="."]
 collision_layer = 1
 [node name="Collision" type="CollisionShape2D" parent="Bottom"]
-position = Vector2(640, 720)
+position = Vector2(640, 712)
 shape = SubResource("wall_h")
 [node name="Left" type="StaticBody2D" parent="."]
 collision_layer = 1
 [node name="Collision" type="CollisionShape2D" parent="Left"]
-position = Vector2(0, 360)
+position = Vector2(8, 360)
 shape = SubResource("wall_v")
 [node name="Right" type="StaticBody2D" parent="."]
 collision_layer = 1
 [node name="Collision" type="CollisionShape2D" parent="Right"]
-position = Vector2(1280, 360)
+position = Vector2(1272, 360)
 shape = SubResource("wall_v")
-[node name="Player" parent="." instance=ExtResource("2")]
-position = Vector2(640, 360)
-[node name="MeleeEnemy1" parent="." instance=ExtResource("3")]
-position = Vector2(280, 220)
-[node name="MeleeEnemy2" parent="." instance=ExtResource("3")]
-position = Vector2(980, 530)
-[node name="MeleeEnemy3" parent="." instance=ExtResource("3")]
-position = Vector2(1050, 180)
-[node name="RangedEnemy1" parent="." instance=ExtResource("4")]
-position = Vector2(220, 540)
-[node name="RangedEnemy2" parent="." instance=ExtResource("4")]
-position = Vector2(1080, 360)
+
 [node name="HUD" type="CanvasLayer" parent="."]
-[node name="Title" type="Label" parent="HUD"]
-offset_left = 410.0
+[node name="TopBar" type="PanelContainer" parent="HUD"]
+offset_left = 356.0
 offset_top = 18.0
-offset_right = 870.0
-offset_bottom = 50.0
-theme_override_colors/font_color = Color(0.55, 0.9, 1, 1)
-theme_override_font_sizes/font_size = 22
-text = "RIFTBORN  •  Ashen Training Ground"
-horizontal_alignment = 1
-[node name="Margin" type="PanelContainer" parent="HUD"]
-offset_left = 24.0
-offset_top = 548.0
-offset_right = 390.0
-offset_bottom = 696.0
+offset_right = 924.0
+offset_bottom = 66.0
 theme_override_styles/panel = SubResource("panel")
-[node name="VBox" type="VBoxContainer" parent="HUD/Margin"]
-theme_override_constants/separation = 7
-[node name="LifeLabel" type="Label" parent="HUD/Margin/VBox"]
+[node name="State" type="Label" parent="HUD/TopBar"]
+theme_override_colors/font_color = Color(0.75, 0.86, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = "ASHEN CAMP  /  CAMP"
+horizontal_alignment = 1
+
+[node name="Objective" type="Label" parent="HUD"]
+offset_left = 300.0
+offset_top = 82.0
+offset_right = 980.0
+offset_bottom = 116.0
+theme_override_colors/font_color = Color(0.9, 0.82, 0.65, 1)
+theme_override_font_sizes/font_size = 16
+text = "Walk to the rift portal and press E to begin the breach."
+horizontal_alignment = 1
+
+[node name="StatusPanel" type="PanelContainer" parent="HUD"]
+offset_left = 24.0
+offset_top = 538.0
+offset_right = 382.0
+offset_bottom = 704.0
+theme_override_styles/panel = SubResource("panel")
+[node name="Stack" type="VBoxContainer" parent="HUD/StatusPanel"]
+theme_override_constants/separation = 6
+[node name="LifeLabel" type="Label" parent="HUD/StatusPanel/Stack"]
 text = "LIFE"
-[node name="Life" type="ProgressBar" parent="HUD/Margin/VBox"]
-custom_minimum_size = Vector2(340, 18)
-value = 100.0
+[node name="Life" type="ProgressBar" parent="HUD/StatusPanel/Stack"]
+custom_minimum_size = Vector2(325, 18)
 show_percentage = false
 theme_override_styles/fill = SubResource("life_fill")
-[node name="ManaLabel" type="Label" parent="HUD/Margin/VBox"]
+[node name="ManaLabel" type="Label" parent="HUD/StatusPanel/Stack"]
 text = "MANA"
-[node name="Mana" type="ProgressBar" parent="HUD/Margin/VBox"]
-custom_minimum_size = Vector2(340, 14)
-value = 100.0
+[node name="Mana" type="ProgressBar" parent="HUD/StatusPanel/Stack"]
+custom_minimum_size = Vector2(325, 15)
 show_percentage = false
 theme_override_styles/fill = SubResource("mana_fill")
-[node name="Skills" type="Label" parent="HUD/Margin/VBox"]
-text = "LMB  Rift Cleave  [READY]\nRMB / Space  Arc Bolt  [READY]"
+[node name="Skills" type="Label" parent="HUD/StatusPanel/Stack"]
+text = "LMB  RIFT CLEAVE  [READY]\nRMB / SPACE  ARC BOLT  [READY]"
+
+[node name="InventoryPanel" type="PanelContainer" parent="HUD"]
+offset_left = 914.0
+offset_top = 120.0
+offset_right = 1256.0
+offset_bottom = 472.0
+theme_override_styles/panel = SubResource("panel")
+[node name="Stack" type="VBoxContainer" parent="HUD/InventoryPanel"]
+theme_override_constants/separation = 10
+[node name="Header" type="Label" parent="HUD/InventoryPanel/Stack"]
+theme_override_colors/font_color = Color(0.85, 0.64, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "RIFT SATCHEL"
+[node name="Equipped" type="Label" parent="HUD/InventoryPanel/Stack"]
+text = "EQUIPPED\nNone"
+[node name="Inventory" type="Label" parent="HUD/InventoryPanel/Stack"]
+text = "No loot yet."
+autowrap_mode = 2
+
+[node name="Hint" type="Label" parent="HUD"]
+offset_left = 410.0
+offset_top = 664.0
+offset_right = 870.0
+offset_bottom = 700.0
+theme_override_colors/font_color = Color(0.65, 0.7, 0.82, 1)
+text = "WASD move  •  Mouse aim  •  E interact  •  Touch controls available"
+horizontal_alignment = 1
+
+[node name="MobileControls" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("5")

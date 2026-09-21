@@ -1,24 +1,23 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=5 format=3]
 
 [ext_resource path="res://scripts/actors/enemy.gd" type="Script" id="1"]
 [ext_resource path="res://data/skills/monster_claw.tres" type="Resource" id="2"]
-[ext_resource path="res://scenes/projectile.tscn" type="PackedScene" id="3"]
-[ext_resource path="res://assets/art/rift_hound.png" type="Texture2D" id="4"]
+[ext_resource path="res://assets/art/rift_hound.png" type="Texture2D" id="3"]
 [sub_resource type="CircleShape2D" id="shape"]
-radius = 23.0
+radius = 26.0
 
-[node name="MeleeEnemy" type="CharacterBody2D"]
+[node name="EliteWarden" type="CharacterBody2D" groups=["enemies"]]
 collision_layer = 4
 collision_mask = 1
 script = ExtResource("1")
-max_life = 95
-move_speed = 125.0
+max_life = 420
+move_speed = 150.0
 skill = ExtResource("2")
-projectile_scene = ExtResource("3")
+is_elite = true
 
 [node name="Sprite" type="Sprite2D" parent="."]
-texture = ExtResource("4")
-scale = Vector2(0.085, 0.085)
+texture = ExtResource("3")
+scale = Vector2(0.14, 0.14)
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 shape = SubResource("shape")

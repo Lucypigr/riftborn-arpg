@@ -20,6 +20,7 @@ move_left={"deadzone":0.2,"events":[Object(InputEventKey,"physical_keycode":65)]
 move_right={"deadzone":0.2,"events":[Object(InputEventKey,"physical_keycode":68)]}
 basic_attack={"deadzone":0.2,"events":[Object(InputEventMouseButton,"button_index":1)]}
 cast_projectile={"deadzone":0.2,"events":[Object(InputEventMouseButton,"button_index":2),Object(InputEventKey,"physical_keycode":32)]}
+interact={"deadzone":0.2,"events":[Object(InputEventKey,"physical_keycode":69)]}
 
 [layer_names]
 2d_physics/layer_1="world"

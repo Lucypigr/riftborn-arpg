@@ -90,6 +90,8 @@ func _apply(target: Node, values: Dictionary, critical: bool) -> Dictionary:
 	target.barrier = barrier_before - absorbed
 	var life_damage := mini(total - absorbed, target.life)
 	target.life -= life_damage
+	if target.has_method("flash_hit"):
+		target.flash_hit()
 	var result := {"total": total, "barrier_absorbed": absorbed, "life_damage": life_damage, "critical": critical, "types": values.duplicate()}
 	damage_resolved.emit(target, result)
 	if target.life <= 0 and target.has_method("die"): target.die()
