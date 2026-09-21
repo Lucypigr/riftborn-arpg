@@ -1,4 +1,4 @@
-name: Godot 4.3 test and Web build
+name: Godot 4.3 test, Web build and Pages deploy
 
 on:
   push:
@@ -78,3 +78,34 @@ jobs:
           path: build/web/
           if-no-files-found: error
           retention-days: 14
+
+      - name: Upload Pages artifact
+        if: github.event_name == 'push' && github.ref == 'refs/heads/build-001-combat-core'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: build/web/
+
+  deploy:
+    name: Deploy Web game to GitHub Pages
+    if: github.event_name == 'push' && github.ref == 'refs/heads/build-001-combat-core'
+    needs: test-and-build
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    concurrency:
+      group: riftborn-pages
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Set up Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: Deploy to Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
