@@ -88,14 +88,14 @@ jobs:
           retention-days: 14
 
       - name: Upload Pages artifact
-        if: github.event_name == 'push' && github.ref == 'refs/heads/build-001-combat-core'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/feature/arpg-vertical-slice'
         uses: actions/upload-pages-artifact@v3
         with:
           path: build/web/
 
   deploy:
     name: Deploy Web game to GitHub Pages
-    if: github.event_name == 'push' && github.ref == 'refs/heads/build-001-combat-core'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/feature/arpg-vertical-slice'
     needs: test-and-build
     runs-on: ubuntu-22.04
     permissions:
